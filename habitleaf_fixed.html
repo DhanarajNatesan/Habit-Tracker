@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitLeaf - Mobile Friendly</title>
+    <style>
+        :root {
+            --primary: #4ade80;
+            --primary-dark: #22c55e;
+            --primary-light: #bbf7d0;
+            --background: #f0fdf4;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #d1d5db;
+            --today: #fef3c7;
+            --done: #4ade80;
+            --not-done: #f1f5f9;
+            --stats-bg: #dcfce7;
+            --login-bg: #00B87C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--login-bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-size: 16px;
+        }
+
+        .login-container, .register-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .app-container {
+            display: none;
+            background-color: var(--background);
+            width: 100%;
+            max-width: 1200px;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .login-header, .register-header {
+            margin-bottom: 25px;
+        }
+
+        .login-title, .register-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            height: 48px;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .forgot-password {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 6px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn, .register-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-btn:hover, .register-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .signup-link, .login-link {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 15px;
+        }
+
+        .signup-link a, .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover, .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .switch-form {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 15px;
+        }
+
+        .switch-form a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main App Styles */
+        header {
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .app-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .habit-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .habit-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            height: 48px;
+        }
+
+        .habit-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .habits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .habit-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            background: white;
+        }
+
+        .habit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .habit-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .delete-btn:hover {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .week-view, .month-view {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+        }
+
+        .day-label {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            padding: 6px 0;
+        }
+
+        .day-cell {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--not-done);
+            border: 2px solid transparent;
+            font-size: 0.8rem;
+            height: 40px;
+        }
+
+        .day-cell:hover {
+            transform: scale(1.05);
+        }
+
+        .day-cell.today {
+            background: var(--today);
+            border-color: #f59e0b;
+        }
+
+        .day-cell.done {
+            background: var(--done);
+        }
+
+        .day-cell.done.today {
+            background: #fbbf24;
+        }
+
+        .stats-view {
+            background: var(--stats-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stats-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 8px 0;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--not-done);
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .view-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: var(--text-light);
+        }
+
+        .empty-state p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            padding: 15px 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .login-container, .register-container {
+                width: 95%;
+                padding: 25px 20px;
+            }
+            
+            .app-content {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .week-view, .month-view {
+                gap: 4px;
+            }
+            
+            .day-cell {
+                border-radius: 5px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .habit-form {
+                flex-direction: column;
+            }
+            
+            .add-btn {
+                height: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .login-title, .register-title {
+                font-size: 1.6rem;
+            }
+            
+            .form-group {
+                margin-bottom: 12px;
+            }
+            
+            input[type="text"], input[type="email"], input[type="password"] {
+                height: 44px;
+            }
+            
+            .login-btn, .register-btn {
+                height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="login-header">
+            <h2 class="login-title">Welcome back!</h2>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="sign@in.net" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="form-group">
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">LOG IN</button>
+        </form>
+
+        <div class="switch-form">
+            Don't have an account? <a href="#" id="showRegister">Sign up</a>
+        </div>
+    </div>
+
+    <!-- Registration Page -->
+    <div class="register-container" id="registerPage" style="display: none;">
+        <div class="register-header">
+            <h2 class="register-title">Create Account</h2>
+        </div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <input type="text" id="regName" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" placeholder="sign@in.net" required>
+            </div>
+
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" placeholder="Create a password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="regConfirmPassword">Confirm Password</label>
+                <input type="password" id="regConfirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="submit" class="register-btn">CREATE ACCOUNT</button>
+        </form>
+
+        <div class="switch-form">
+            Already have an account? <a href="#" id="showLogin">Log in</a>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" id="mainApp">
+        <header>
+            <h1>🌱 HabitLeaf</h1>
+            <p class="subtitle">Simple, clean, and lightweight habit tracker</p>
+        </header>
+
+        <main class="app-content">
+            <form class="habit-form" id="habitForm">
+                <input 
+                    type="text" 
+                    class="habit-input" 
+                    id="habitInput" 
+                    placeholder="Add a new habit (e.g., Meditation, Exercise, Read)" 
+                    required
+                >
+                <button type="submit" class="add-btn">Add Habit</button>
+            </form>
+
+            <div class="habits-list" id="habitsList">
+                <div class="loading">Loading habits...</div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Track and grow your habits with HabitLeaf</p>
+        </footer>
+    </div>
+
+    <!-- Supabase JS SDK - Using a more reliable CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+
+    <script>
+        // Initialize Supabase - Multiple fallback approaches
+        let supabaseClient;
+        
+        function initializeSupabase() {
+            try {
+                // Try different ways to access Supabase
+                const supabase = window.supabase || window.Supabase || window.SUPABASE;
+                
+                if (supabase && supabase.createClient) {
+                    supabaseClient = supabase.createClient(
+                        'https://knwktinnqnqblqiydwza.supabase.co',
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtud2t0aW5ucW5xYmxxaXlkd3phIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQxMzY0NDksImV4cCI6MjA2OTcxMjQ0OX0.FphUrRUaN-pmFC0i63qO1lZjionUBL_5niEM-o80-jk'
+                    );
+                    console.log('✅ Supabase client initialized successfully!');
+                    return true;
+                } else {
+                    console.error('❌ Supabase createClient not found');
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Error initializing Supabase:', error);
+                return false;
+            }
+        }
+        
+        // Try to initialize immediately
+        let supabaseReady = false;
+        
+        // Try multiple times with delays
+        function tryInitializeSupabase(attempts = 0) {
+            if (attempts > 10) {
+                alert('❌ Failed to load Supabase after multiple attempts. Please refresh the page.');
+                return;
+            }
+            
+            if (initializeSupabase()) {
+                supabaseReady = true;
+                setupAuthListener();
+                checkExistingUser();
+            } else {
+                console.log(`Attempt ${attempts + 1}: Supabase not ready, retrying in 500ms...`);
+                setTimeout(() => tryInitializeSupabase(attempts + 1), 500);
+            }
+        }
+        
+        // Start trying to initialize
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => tryInitializeSupabase());
+        } else {
+            tryInitializeSupabase();
+        }
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const registerPage = document.getElementById('registerPage');
+        const mainApp = document.getElementById('mainApp');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const regNameInput = document.getElementById('regName');
+        const regEmailInput = document.getElementById('regEmail');
+        const regPasswordInput = document.getElementById('regPassword');
+        const regConfirmPasswordInput = document.getElementById('regConfirmPassword');
+
+        // Habit tracking elements
+        const habitForm = document.getElementById('habitForm');
+        const habitInput = document.getElementById('habitInput');
+        const habitsList = document.getElementById('habitsList');
+
+        // Global variables
+        let currentUser = null;
+        let habits = [];
+
+        // Get today's date
+        const today = new Date();
+        const todayIndex = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
+        const todayDate = today.getDate() - 1; // For monthly view (0-indexed)
+
+        // Switch to registration page
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginPage.style.display = 'none';
+            registerPage.style.display = 'block';
+        });
+
+        // Switch to login page
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerPage.style.display = 'none';
+            loginPage.style.display = 'block';
+        });
+
+        // Handle login submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!supabaseReady || !supabaseClient) {
+                alert('⏳ Supabase is still loading. Please wait a moment and try again.');
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    console.error('Login error details:', error);
+                    if (error.message.includes('Email not confirmed')) {
+                        alert('📧 Please check your email and click the confirmation link before logging in.\n\nOR ask admin to disable email confirmation in Supabase settings:\n• Go to Authentication → Settings\n• Turn OFF "Confirm email"\n• Save changes');
+                    } else if (error.message.includes('Invalid login credentials')) {
+                        alert('❌ Invalid email or password. Please check your credentials and try again.');
+                    } else {
+                        alert(`❌ Login failed: ${error.message}`);
+                    }
+                    return;
+                }
+
+                currentUser = data.user;
+                loginPage.style.display = 'none';
+                mainApp.style.display = 'block';
+                await initApp();
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('❌ Login failed. Please try again.');
+            }
+        });
+
+        // Handle registration submission
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!supabaseClient) {
+                alert('Supabase not initialized. Please refresh the page.');
+                return;
+            }
+
+            const name = regNameInput.value.trim();
+            const email = regEmailInput.value.trim();
+            const password = regPasswordInput.value;
+            const confirmPassword = regConfirmPasswordInput.value;
+
+            // Basic validation
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long!");
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: name,
+                        }
+                    }
+                });
+
+                if (error) {
+                    console.error('Registration error details:', error);
+                    if (error.message.includes('already registered')) {
+                        alert('This email is already registered. Please try logging in instead.');
+                    } else if (error.message.includes('Invalid email')) {
+                        alert('Please enter a valid email address.');
+                    } else if (error.message.includes('Password')) {
+                        alert('Password must be at least 6 characters long.');
+                    } else {
+                        alert(`Registration failed: ${error.message}`);
+                    }
+                    return;
+                }
+
+                alert("Account created successfully! Please check your email for verification, then log in.");
+                registerPage.style.display = 'none';
+                loginPage.style.display = 'block';
+                registerForm.reset();
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed. Please try again.');
+            }
+        });
+
+        // Initialize the app
+        async function initApp() {
+            await loadHabits();
+            renderHabits();
+        }
+
+        // Load habits from Supabase
+        async function loadHabits() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('habits')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .order('created_at', { ascending: true });
+
+                if (error) {
+                    console.error('Error loading habits:', error);
+                    habits = [];
+                    return;
+                }
+
+                habits = data || [];
+            } catch (error) {
+                console.error('Error loading habits:', error);
+                habits = [];
+            }
+        }
+
+        // Save habit to Supabase
+        async function saveHabit(habit) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('habits')
+                    .insert([{
+                        user_id: currentUser.id,
+                        name: habit.name,
+                        weekly_data: habit.weekly,
+                        monthly_data: habit.monthly
+                    }])
+                    .select();
+
+                if (error) {
+                    console.error('Error saving habit:', error);
+                    return null;
+                }
+
+                return data[0];
+            } catch (error) {
+                console.error('Error saving habit:', error);
+                return null;
+            }
+        }
+
+        // Update habit in Supabase
+        async function updateHabit(habitId, updates) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('habits')
+                    .update(updates)
+                    .eq('id', habitId)
+                    .eq('user_id', currentUser.id);
+
+                if (error) {
+                    console.error('Error updating habit:', error);
+                    return false;
+                }
+
+                return true;
+            } catch (error) {
+                console.error('Error updating habit:', error);
+                return false;
+            }
+        }
+
+        // Delete habit from Supabase
+        async function deleteHabitFromDB(habitId) {
+            try {
+                const { error } = await supabaseClient
+                    .from('habits')
+                    .delete()
+                    .eq('id', habitId)
+                    .eq('user_id', currentUser.id);
+
+                if (error) {
+                    console.error('Error deleting habit:', error);
+                    return false;
+                }
+
+                return true;
+            } catch (error) {
+                console.error('Error deleting habit:', error);
+                return false;
+            }
+        }
+
+        // Render all habits
+        function renderHabits() {
+            if (habits.length === 0) {
+                habitsList.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No habits yet</h3>
+                        <p>Add your first habit to start tracking your progress</p>
+                    </div>
+                `;
+                return;
+            }
+
+            habitsList.innerHTML = '';
+            habits.forEach((habit, index) => {
+                const habitElement = createHabitElement(habit, index);
+                habitsList.appendChild(habitElement);
+            });
+        }
+
+        // Create habit element
+        function createHabitElement(habit, index) {
+            const habitDiv = document.createElement('div');
+            habitDiv.className = 'habit-item';
+            habitDiv.innerHTML = `
+                <div class="habit-header">
+                    <h3 class="habit-name">${habit.name}</h3>
+                    <button class="delete-btn" onclick="deleteHabit(${index})">×</button>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="switchView(${index}, 'week')">Weekly</button>
+                    <button class="view-btn" onclick="switchView(${index}, 'month')">Monthly</button>
+                    <button class="view-btn" onclick="switchView(${index}, 'stats')">Statistics</button>
+                </div>
+                <div class="week-view" id="week-${index}">
+                    ${renderWeekGrid(habit, index)}
+                </div>
+                <div class="month-view" id="month-${index}" style="display: none;">
+                    ${renderMonthGrid(habit, index)}
+                </div>
+                <div class="stats-view" id="stats-${index}" style="display: none;">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Weekly Completion</div>
+                            <div class="stat-value">${calculateWeeklyCompletion(habit)}%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${calculateWeeklyCompletion(habit)}%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Monthly Completion</div>
+                            <div class="stat-value">${calculateMonthlyCompletion(habit)}%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${calculateMonthlyCompletion(habit)}%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Current Streak</div>
+                            <div class="stat-value">${calculateCurrentStreak(habit)}</div>
+                            <div class="stat-label">days</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return habitDiv;
+        }
+
+        // Render week grid for a habit
+        function renderWeekGrid(habit, habitIndex) {
+            let gridHTML = '<div class="day-label"></div>'; // Empty first cell for alignment
+            const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayLabels.forEach(label => {
+                gridHTML += `<div class="day-label">${label}</div>`;
+            });
+            
+            gridHTML += '<div class="day-label">This Week</div>';
+            
+            const weeklyData = habit.weekly_data || habit.weekly || [false, false, false, false, false, false, false];
+            
+            for (let i = 0; i < 7; i++) {
+                const isDone = weeklyData[i];
+                const isToday = i === todayIndex;
+                const classes = [
+                    'day-cell',
+                    isDone ? 'done' : '',
+                    isToday ? 'today' : ''
+                ].filter(Boolean).join(' ');
+                
+                gridHTML += `<div class="${classes}" onclick="toggleWeeklyDay(${habitIndex}, ${i})"></div>`;
+            }
+            
+            return gridHTML;
+        }
+
+        // Render month grid for a habit
+        function renderMonthGrid(habit, habitIndex) {
+            let gridHTML = '<div class="day-label"></div>'; // Empty first cell for alignment
+            const dayLabels = ['1', '2', '3', '4', '5', '6', '7'];
+            dayLabels.forEach(label => {
+                gridHTML += `<div class="day-label">${label}</div>`;
+            });
+            
+            gridHTML += '<div class="day-label">This Month</div>';
+            
+            const monthlyData = habit.monthly_data || habit.monthly || Array(31).fill(false);
+            
+            // Show first 31 days of month
+            for (let i = 0; i < 31; i++) {
+                const isDone = monthlyData[i] || false;
+                const isToday = i === todayDate;
+                const classes = [
+                    'day-cell',
+                    isDone ? 'done' : '',
+                    isToday ? 'today' : ''
+                ].filter(Boolean).join(' ');
+                
+                gridHTML += `<div class="${classes}" onclick="toggleMonthlyDay(${habitIndex}, ${i})">${i + 1}</div>`;
+            }
+            
+            return gridHTML;
+        }
+
+        // Calculate weekly completion percentage
+        function calculateWeeklyCompletion(habit) {
+            const weeklyData = habit.weekly_data || habit.weekly || [];
+            const completed = weeklyData.filter(day => day).length;
+            return Math.round((completed / 7) * 100);
+        }
+
+        // Calculate monthly completion percentage
+        function calculateMonthlyCompletion(habit) {
+            const monthlyData = habit.monthly_data || habit.monthly || [];
+            const completed = monthlyData.filter(day => day).length;
+            return Math.round((completed / 31) * 100);
+        }
+
+        // Calculate current streak
+        function calculateCurrentStreak(habit) {
+            const weeklyData = habit.weekly_data || habit.weekly || [];
+            let streak = 0;
+            // Check weekly streak from today backwards
+            for (let i = todayIndex; i >= 0; i--) {
+                if (weeklyData[i]) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            return streak;
+        }
+
+        // Switch view for a specific habit
+        function switchView(habitIndex, viewType) {
+            const habitElement = document.querySelector(`.habit-item:nth-child(${habitIndex + 1})`);
+            
+            // Update view buttons
+            const viewButtons = habitElement.querySelectorAll('.view-btn');
+            viewButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the correct button
+            viewButtons.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(viewType)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show/hide views
+            const weekView = document.getElementById(`week-${habitIndex}`);
+            const monthView = document.getElementById(`month-${habitIndex}`);
+            const statsView = document.getElementById(`stats-${habitIndex}`);
+            
+            weekView.style.display = viewType === 'week' ? 'grid' : 'none';
+            monthView.style.display = viewType === 'month' ? 'grid' : 'none';
+            statsView.style.display = viewType === 'stats' ? 'block' : 'none';
+        }
+
+        // Toggle weekly day status
+        async function toggleWeeklyDay(habitIndex, dayIndex) {
+            const habit = habits[habitIndex];
+            const weeklyData = habit.weekly_data || habit.weekly || [false, false, false, false, false, false, false];
+            
+            // Toggle the day
+            weeklyData[dayIndex] = !weeklyData[dayIndex];
+            
+            // Update local data
+            if (habit.weekly_data) {
+                habit.weekly_data = weeklyData;
+            } else {
+                habit.weekly = weeklyData;
+            }
+            
+            // Update in database
+            const updates = { weekly_data: weeklyData };
+            await updateHabit(habit.id, updates);
+            
+            // Re-render to update UI
+            renderHabits();
+        }
+
+        // Toggle monthly day status
+        async function toggleMonthlyDay(habitIndex, dayIndex) {
+            const habit = habits[habitIndex];
+            const monthlyData = habit.monthly_data || habit.monthly || Array(31).fill(false);
+            
+            // Toggle the day
+            monthlyData[dayIndex] = !monthlyData[dayIndex];
+            
+            // Update local data
+            if (habit.monthly_data) {
+                habit.monthly_data = monthlyData;
+            } else {
+                habit.monthly = monthlyData;
+            }
+            
+            // Update in database
+            const updates = { monthly_data: monthlyData };
+            await updateHabit(habit.id, updates);
+            
+            // Re-render to update UI
+            renderHabits();
+        }
+
+        // Add new habit
+        async function addHabit(name) {
+            const newHabit = {
+                name: name,
+                weekly: [false, false, false, false, false, false, false],
+                monthly: Array(31).fill(false)
+            };
+            
+            // Save to database
+            const savedHabit = await saveHabit(newHabit);
+            if (savedHabit) {
+                habits.push(savedHabit);
+                renderHabits();
+            } else {
+                alert('Failed to save habit. Please try again.');
+            }
+        }
+
+        // Delete habit
+        async function deleteHabit(index) {
+            if (confirm('Are you sure you want to delete this habit?')) {
+                const habit = habits[index];
+                
+                // Delete from database
+                const success = await deleteHabitFromDB(habit.id);
+                if (success) {
+                    habits.splice(index, 1);
+                    renderHabits();
+                } else {
+                    alert('Failed to delete habit. Please try again.');
+                }
+            }
+        }
+
+        // Event Listeners for habit form
+        habitForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const habitName = habitInput.value.trim();
+            
+            if (habitName) {
+                await addHabit(habitName);
+                habitInput.value = '';
+                habitInput.focus();
+            }
+        });
+
+        // Check if user is already logged in
+        window.addEventListener('load', async () => {
+            // Wait a bit for Supabase to initialize
+            setTimeout(async () => {
+                if (!supabaseClient) {
+                    console.log('Supabase client not ready yet');
+                    return;
+                }
+                
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                
+                if (user) {
+                    currentUser = user;
+                    loginPage.style.display = 'none';
+                    mainApp.style.display = 'block';
+                    await initApp();
+                }
+            }, 1000);
+        });
+
+        // Listen for auth changes
+        function setupAuthListener() {
+            if (supabaseClient) {
+                supabaseClient.auth.onAuthStateChange((event, session) => {
+                    if (event === 'SIGNED_OUT') {
+                        currentUser = null;
+                        habits = [];
+                        mainApp.style.display = 'none';
+                        loginPage.style.display = 'block';
+                    }
+                });
+            }
+        }
+
+        // Setup auth listener after Supabase loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(setupAuthListener, 1000);
+        });
+
+        // Add logout functionality (you can add a logout button in the UI if needed)
+        async function logout() {
+            if (supabaseClient) {
+                await supabaseClient.auth.signOut();
+            }
+        }
+
+        // Initialize database tables (run this once to set up your Supabase tables)
+        async function initDatabase() {
+            // This would typically be done through Supabase Dashboard or SQL
+            // Here's the SQL you need to run in your Supabase SQL editor:
+            /*
+            CREATE TABLE habits (
+                id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+                name TEXT NOT NULL,
+                weekly_data BOOLEAN[] DEFAULT ARRAY[false, false, false, false, false, false, false],
+                monthly_data BOOLEAN[] DEFAULT ARRAY_FILL(false, ARRAY[31]),
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+            );
+
+            -- Enable Row Level Security
+            ALTER TABLE habits ENABLE ROW LEVEL SECURITY;
+
+            -- Create policy to allow users to only see their own habits
+            CREATE POLICY "Users can only see their own habits" ON habits
+                FOR ALL USING (auth.uid() = user_id);
+
+            -- Create updated_at trigger
+            CREATE OR REPLACE FUNCTION update_updated_at_column()
+            RETURNS TRIGGER AS $
+            BEGIN
+                NEW.updated_at = NOW();
+                RETURN NEW;
+            END;
+            $ language 'plpgsql';
+
+            CREATE TRIGGER update_habits_updated_at BEFORE UPDATE ON habits
+                FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+            */
+        }
+    </script>
+</body>
+</html>
