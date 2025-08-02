@@ -1,0 +1,24 @@
+[build]
+  # Since this is a static HTML file, no build process needed
+  command = ""
+  
+  # Publish the root directory (where your HTML file is)
+  publish = "."
+
+[build.environment]
+  # No build environment needed for static HTML
+
+# Optional: Set up redirects for SPA-like behavior
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+# Optional: Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
